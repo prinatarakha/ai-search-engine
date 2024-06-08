@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Thread {
+  id                String @id @unique @default(dbgenerated("gen_random_uuid()"))
+  searchInput       String
+  cleanedQuery      String?
+  status            String @default("initiated")
+  sourceType        String @default("web_article")
+  sources           String[] @default([])
+  keyWords          String[] @default([])
+  answer            String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+}
+
+model Document {
+  id                String @id @unique @default(dbgenerated("gen_random_uuid()"))
+  url               String
+  source            String @default("web_article")
+  content           String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+}
