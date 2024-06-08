@@ -1,4 +1,4 @@
-import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+import { ChatCompletionMessageParam, ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam } from "openai/resources/chat/completions";
 import { client } from "./client.openai";
 
 export const chatCompletion = async (messages: Array<ChatCompletionMessageParam>) => {
@@ -9,7 +9,7 @@ export const chatCompletion = async (messages: Array<ChatCompletionMessageParam>
 
     const output: string | null = response.choices[0].message.content;
     if (!output) {
-        console.log(`Failed to get chat gpt output with this messages: ${JSON.stringify(messages)}`)
+        console.error(`Failed to get chat gpt output with this messages: ${JSON.stringify(messages)}`)
     }
     return output ?? "";
 }

@@ -19,7 +19,9 @@ model Thread {
   searchInput       String
   cleanedQuery      String?
   status            String @default("initiated")
+  sourceType        String @default("web_article")
   sources           String[] @default([])
+  keyWords          String[] @default([])
   answer            String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @default(now()) @updatedAt
